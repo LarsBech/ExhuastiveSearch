@@ -1,9 +1,12 @@
 public class RSAtools {
     private class KeyPair {
         int e;
-
         int d;
         int n;
+
+        public KeyPair() {
+
+        }
 
         public KeyPair(int salt) {
 
@@ -12,7 +15,6 @@ public class RSAtools {
         public int getE() {
             return e;
         }
-
         public int getD() {
             return d;
         }
@@ -26,14 +28,16 @@ public class RSAtools {
         return mAsEncoded;
     }
 
-    // public static
+    private static String convertIntToText(int c) {
+        return "";
+    }
 
-    public static int encode(int k, String m) {
+    public static int encode(KeyPair kp, String m) {
         int c = 0;
         return c;
     }
 
-    public static String decode(int k, int c) {
+    public static String decode(KeyPair kp, int c) {
         return "";
     }
 }
