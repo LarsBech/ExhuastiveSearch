@@ -1,17 +1,21 @@
 public class RSAtools {
     private class KeyPair {
-        int k;
+        int e;
+
+        int d;
         int n;
 
         public KeyPair(int salt) {
-            this.k = 7;
-            this.n = 42;
+
         }
 
-        public int getK() {
-            return k;
+        public int getE() {
+            return e;
         }
 
+        public int getD() {
+            return d;
+        }
         public int getN() {
             return n;
         }
