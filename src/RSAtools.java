@@ -28,4 +28,8 @@ public class RSAtools {
         int c = 0;
         return c;
     }
+
+    public static String decode(int k, int c) {
+        return "";
+    }
 }
