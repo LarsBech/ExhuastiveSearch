@@ -7,7 +7,6 @@ class RSAtoolsTest {
     void convertTextToInt() {
         int i = RSAtools.convertTextToInt("Hej");
         assertEquals(4744554, i);
-
     }
 
     @org.junit.jupiter.api.Test

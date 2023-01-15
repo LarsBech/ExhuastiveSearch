@@ -1,14 +1,21 @@
+import java.math.BigInteger;
+import java.util.Random;
+
 public class RSAtools {
     private class KeyPair {
         int e;
         int d;
         int n;
 
+
         public KeyPair() {
+            int p = BigInteger.probablePrime(16, new Random()).intValue();
+            int q = BigInteger.probablePrime(16, new Random()).intValue();
+            n=p*q;
+            e= 13;
+            //d =
+            int phi = (p-1)*(q-1);
 
-        }
-
-        public KeyPair(int salt) {
 
         }
 
