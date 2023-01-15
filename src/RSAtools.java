@@ -27,17 +27,18 @@ public class RSAtools {
         int mAsEncoded = 0;
         for(int i=0; i<m.length(); i++){
             char c = m.charAt(i);
-         //   mAsEncoded = c;//mAsEncoded<<(8*i) + c;
             mAsEncoded = (mAsEncoded<<(8))+c;
-            System.out.println(c + " mAsEncoded: " + mAsEncoded);
         }
-
         return mAsEncoded;
     }
 
     public static String convertIntToText(int c) {
         String m ="";
-        
+        while(c!=0){
+            int i = 0b11111111&c;
+            m =  (char)i +m;
+            c = c>>8;
+        }
         return m;
     }
 

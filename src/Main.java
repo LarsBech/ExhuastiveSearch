@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        RSAtools.convertTextToInt("Hej");
+        int c =RSAtools.convertTextToInt("Hej");
+        System.out.println("\nText: "+ RSAtools.convertIntToText(c));
     }
 }
