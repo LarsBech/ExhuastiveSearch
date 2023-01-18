@@ -44,7 +44,7 @@ public class RSAtools {
            // BigInteger x = eBig.pow(RSAtools.phiFunction(phiOfN.intValue())-1);
           //  BigInteger y = x.mod(phiOfN);
             int x = RSAtools.phiFunction(phiOfN.intValue())-1;
-            int Y =42;
+            int Y = 42;
             BigInteger dBig =  (eBig.pow(RSAtools.phiFunction(phiOfN.intValue())-1)).mod(phiOfN) ;
 
             e=eBig.intValue();
