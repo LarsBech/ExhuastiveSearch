@@ -2,7 +2,20 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RSAtoolsTest {
-
+    @org.junit.jupiter.api.Test
+    void phiFunctionTest() {
+        assertEquals(2, RSAtools.phiFunction(3));
+        assertEquals(2, RSAtools.phiFunction(4));
+        assertEquals(4, RSAtools.phiFunction(5));
+        assertEquals(2, RSAtools.phiFunction(6));
+        assertEquals(6, RSAtools.phiFunction(7));
+        assertEquals(4, RSAtools.phiFunction(8));
+        assertEquals(6, RSAtools.phiFunction(9));
+        assertEquals(4, RSAtools.phiFunction(10));
+        assertEquals(10, RSAtools.phiFunction(11));
+        assertEquals(64, RSAtools.phiFunction(192));
+        assertEquals(1840,RSAtools.phiFunction(1927));
+    }
     @org.junit.jupiter.api.Test
     void convertTextToInt() {
         int i = RSAtools.convertTextToInt("Hej");
