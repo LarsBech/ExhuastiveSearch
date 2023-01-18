@@ -1,3 +1,5 @@
+import java.security.KeyPair;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,6 +18,16 @@ class RSAtoolsTest {
         assertEquals(64, RSAtools.phiFunction(192));
         assertEquals(1840,RSAtools.phiFunction(1927));
     }
+
+    @org.junit.jupiter.api.Test
+    void testKeyPair(){
+        RSAtools rsAtools = new RSAtools();
+        RSAtools.KeyPair keyPair = rsAtools.getKeyPair();
+        assertEquals(13, keyPair.getE());
+        System.out.println("n: "+keyPair.getN());
+        System.out.println("d: "+keyPair.getD());
+    }
+
     @org.junit.jupiter.api.Test
     void convertTextToInt() {
         int i = RSAtools.convertTextToInt("Hej");

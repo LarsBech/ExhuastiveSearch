@@ -17,23 +17,22 @@ public class RSAtools {
         }
         return phiOfN;
     }
-    private class KeyPair {
+    public KeyPair getKeyPair(){
+        KeyPair keyPair = new KeyPair();
+        return keyPair;
+    }
+    public class KeyPair {
         int e;
         int d;
         int n;
-
-
         public KeyPair() {
-            int p = BigInteger.probablePrime(16, new Random()).intValue();
-            int q = BigInteger.probablePrime(16, new Random()).intValue();
-            n=p*q;
-            e= 13;
-            //d =
-            int phi = (p-1)*(q-1);
-            //d = Math.pow(e, )
-
+            BigInteger p = BigInteger.probablePrime(8, new Random());
+            BigInteger q = BigInteger.probablePrime(8, new Random());
+            //BigInteger e = BigInteger.valueOf(13);
+            e=13;
+            BigInteger phiOfN = p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1)));
+            d = (int)(Math.pow(e,RSAtools.phiFunction(phiOfN.intValue())-1)%phiOfN.intValue());
         }
-
         public int getE() {
             return e;
         }
