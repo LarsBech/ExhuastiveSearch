@@ -1,24 +1,38 @@
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RSAtools {
-    private class KeyPair {
+    public static int phiFunction(int n){
+        int phiOfN=0;
+        for(int i=1; i<n; i++){
+            BigInteger bi = BigInteger.valueOf(i);
+          //  System.out.println("bi: "+bi);
+          //  System.out.println("bi.gcd(BigInteger.valueOf(n)): "+bi.gcd(BigInteger.valueOf(n)));
+          //  System.out.println("BigInteger.valueOf(1): " + BigInteger.valueOf(1));
+            if(bi.gcd(BigInteger.valueOf(n)).equals(BigInteger.valueOf(1))){
+            //    System.out.println("bi.gcd(BigInteger.valueOf(n)): "+bi.gcd(BigInteger.valueOf(n)));
+                phiOfN++;
+            }
+        }
+        return phiOfN;
+    }
+    public KeyPair getKeyPair(){
+        KeyPair keyPair = new KeyPair();
+        return keyPair;
+    }
+    public class KeyPair {
         int e;
         int d;
         int n;
-
-
         public KeyPair() {
-            int p = BigInteger.probablePrime(16, new Random()).intValue();
-            int q = BigInteger.probablePrime(16, new Random()).intValue();
-            n=p*q;
-            e= 13;
-            //d =
-            int phi = (p-1)*(q-1);
-
-
+            BigInteger p = BigInteger.probablePrime(8, new Random());
+            BigInteger q = BigInteger.probablePrime(8, new Random());
+            //BigInteger e = BigInteger.valueOf(13);
+            e=13;
+            BigInteger phiOfN = p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1)));
+            d = (int)(Math.pow(e,RSAtools.phiFunction(phiOfN.intValue())-1)%phiOfN.intValue());
         }
-
         public int getE() {
             return e;
         }
