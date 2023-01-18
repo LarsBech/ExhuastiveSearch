@@ -28,10 +28,25 @@ public class RSAtools {
         public KeyPair() {
             BigInteger p = BigInteger.probablePrime(8, new Random());
             BigInteger q = BigInteger.probablePrime(8, new Random());
-            //BigInteger e = BigInteger.valueOf(13);
-            e=13;
+            n=p.intValue()*q.intValue();
             BigInteger phiOfN = p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1)));
-            d = (int)(Math.pow(e,RSAtools.phiFunction(phiOfN.intValue())-1)%phiOfN.intValue());
+            BigInteger eBig = BigInteger.valueOf(0);
+
+            boolean notRelativPrime = true;
+            while(notRelativPrime){
+                eBig = BigInteger.probablePrime(6, new Random());
+                if(eBig.gcd(phiOfN).intValue() == 1)
+                    notRelativPrime = false;
+            }
+
+           // BigInteger x = eBig.pow(RSAtools.phiFunction(phiOfN.intValue())-1);
+          //  BigInteger y = x.mod(phiOfN);
+            int x = RSAtools.phiFunction(phiOfN.intValue())-1;
+            int Y =42;
+            BigInteger dBig =  (eBig.pow(RSAtools.phiFunction(phiOfN.intValue())-1)).mod(phiOfN) ;
+
+            e=eBig.intValue();
+            d=dBig.intValue();
         }
         public int getE() {
             return e;
