@@ -22,9 +22,27 @@ public class RSAtools {
     }
 
     public static int phiFunctionEfficient(int n) {
+        int phiOfN=1;
         ArrayList<Integer> pf = primeFactorize(n);
+        if(pf.size()==1)
+            return n-1;
 
-        return n;
+        for(int i=1; i<pf.size(); i++){
+            int factor = pf.get(i);
+            int nrOfOcurrences = 1;
+            while(i<pf.size()-1 && factor==pf.get(i+1)){
+                nrOfOcurrences++;
+                i++;
+            }
+            if(nrOfOcurrences==1){
+                phiOfN = phiOfN * (factor-1);
+            }else{
+
+                phiOfN = phiOfN * ((int)Math.pow(factor, nrOfOcurrences) - (int)Math.pow(factor, nrOfOcurrences-1));
+            }
+        }
+
+        return phiOfN;
     }
 
     public static int phiFunction(int n) {

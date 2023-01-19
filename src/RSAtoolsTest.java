@@ -7,8 +7,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RSAtoolsTest {
 
     @org.junit.jupiter.api.Test
+    void phiFunctionEfficientTest() {
+      assertEquals(2, RSAtools.phiFunctionEfficient(3));
+        assertEquals(4, RSAtools.phiFunctionEfficient(5));
+        assertEquals(22, RSAtools.phiFunctionEfficient(23));
+
+        assertEquals(2, RSAtools.phiFunctionEfficient(6));
+        assertEquals(4, RSAtools.phiFunctionEfficient(8));
+
+        assertEquals(8, RSAtools.phiFunctionEfficient(15));
+        assertEquals(8, RSAtools.phiFunctionEfficient(24));
+        assertEquals(16, RSAtools.phiFunctionEfficient(32));
+        assertEquals(20, RSAtools.phiFunctionEfficient(33));
+
+    }
+
+
+
+    @org.junit.jupiter.api.Test
     void primeFactorizeTest() {
-/*
+
         ArrayList<Integer> pf= new ArrayList<>();
         pf.add(1);
         pf.add(2);
@@ -26,7 +44,7 @@ class RSAtoolsTest {
         pf3.add(1);
         pf3.add(2);
         pf3.add(5);
-        assertTrue(pf3.equals(RSAtools.primeFactorize(10)));*/
+        assertTrue(pf3.equals(RSAtools.primeFactorize(10)));
 
         ArrayList<Integer> pf4= new ArrayList<>();
         pf4.add(1);
