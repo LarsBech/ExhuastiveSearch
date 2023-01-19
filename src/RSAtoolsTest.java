@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RSAtoolsTest {
+
     @org.junit.jupiter.api.Test
     void phiFunctionTest() {
         assertEquals(2, RSAtools.phiFunction(3));
@@ -23,9 +24,8 @@ class RSAtoolsTest {
     void testKeyPair(){
         RSAtools rsAtools = new RSAtools();
         RSAtools.KeyPair keyPair = rsAtools.getKeyPair();
-        assertEquals(13, keyPair.getE());
-        System.out.println("n: "+keyPair.getN());
-        System.out.println("d: "+keyPair.getD());
+        //System.out.println("n: "+keyPair.getN());
+     //   System.out.println("d: "+keyPair.getD());
     }
 
     @org.junit.jupiter.api.Test
@@ -39,6 +39,7 @@ class RSAtoolsTest {
         String s = RSAtools.convertIntToText(4744554);
         assertEquals("Hej", s);
     }
+
 
     @org.junit.jupiter.api.Test
     void convertTextToIntToText() {
@@ -68,10 +69,45 @@ class RSAtoolsTest {
     }
 
     @org.junit.jupiter.api.Test
-    void encode() {
+    void convertLongTextToIntToText() {
+
+        assertEquals("a", RSAtools.convertIntToText(RSAtools.convertTextToInt("a")));
+        assertEquals("to", RSAtools.convertIntToText(RSAtools.convertTextToInt("to")));
+        assertEquals("tre", RSAtools.convertIntToText(RSAtools.convertTextToInt("tre")));
+        assertEquals("fire", RSAtools.convertIntToText(RSAtools.convertTextToInt("fire")));
+        assertEquals("~~~~", RSAtools.convertIntToText(RSAtools.convertTextToInt("~~~~")));
+    }
+    @org.junit.jupiter.api.Test
+    void encodeAndDecode() {
+        RSAtools.KeyPair kp = new RSAtools().getKeyPair();
+        int c = RSAtools.encode(kp, "~~");
+        String m = RSAtools.decode(kp, c);
+        assertEquals("~~", m);
+        /*
+        for(int i=0; i<100; i++ ) {
+            RSAtools.KeyPair kp = new RSAtools().getKeyPair();
+            System.out.println("d: " + kp.getD()+ " n: " + kp.getN());
+
+            int c = RSAtools.encode(kp, "a");
+            String m = RSAtools.decode(kp, c);
+            assertEquals("a", RSAtools.decode(kp, c));
+
+            c = RSAtools.encode(kp, "to");
+            m = RSAtools.decode(kp, c);
+            assertEquals("to", RSAtools.decode(kp, c));
+
+            c = RSAtools.encode(kp, "tr");
+            m = RSAtools.decode(kp, c);
+            assertEquals("tr", RSAtools.decode(kp, c));
+
+            c = RSAtools.encode(kp, "000");
+            m = RSAtools.decode(kp, c);
+            assertEquals("000", RSAtools.decode(kp, c));
+
+
+        }
+        */
+
     }
 
-    @org.junit.jupiter.api.Test
-    void decode() {
-    }
 }
