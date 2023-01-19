@@ -4,6 +4,29 @@ import java.util.Random;
 
 public class RSAtools {
 
+    public static ArrayList<Integer> primeFactorize(int n) {
+        ArrayList<Integer> pf = new ArrayList<>();
+        pf.add(1);
+        int factor = 2;
+        int rm = n;
+
+        while (factor <= rm ) {
+            if (rm % factor == 0 && factor!=n) {
+              pf.add(factor);
+                rm = rm / factor;
+                factor--;
+            }
+            factor++;
+        }
+        return pf;
+    }
+
+    public static int phiFunctionEfficient(int n) {
+        ArrayList<Integer> pf = primeFactorize(n);
+
+        return n;
+    }
+
     public static int phiFunction(int n) {
         int phiOfN = 0;
         for (int i = 1; i < n; i++) {
@@ -11,9 +34,13 @@ public class RSAtools {
             if (bi.gcd(BigInteger.valueOf(n)).equals(BigInteger.valueOf(1))) {
                 phiOfN++;
             }
+            if (phiOfN % 100 == 0) {
+                System.out.println("phiOfN: " + phiOfN);
+            }
         }
         return phiOfN;
     }
+
 
     public KeyPair getKeyPair() {
         return new KeyPair();
@@ -25,10 +52,11 @@ public class RSAtools {
         int n;
 
         public KeyPair() {
-
+            //Java max size int: 2.147.483.647
+            //Min size for n:    2.122.219.134 in order to represent "~~~~" (the largest printable 4 byte ascii string)
             BigInteger eBig = BigInteger.valueOf(13);
-            BigInteger p = BigInteger.valueOf(211);
-            BigInteger q = BigInteger.valueOf(233);
+            BigInteger p = BigInteger.valueOf(39971);
+            BigInteger q = BigInteger.valueOf(53359);
             BigInteger phiOfN = p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1)));
             BigInteger dBig = (eBig.pow(RSAtools.phiFunction(phiOfN.intValue()) - 1)).mod(phiOfN);
 
@@ -48,7 +76,7 @@ public class RSAtools {
             n = p.intValue() * q.intValue();
             e = eBig.intValue();
             d = dBig.intValue();
-            System.out.println("phiOfN: "+phiOfN.intValue());
+            System.out.println("phiOfN: " + phiOfN.intValue());
         }
 
         public int getE() {
@@ -88,7 +116,7 @@ public class RSAtools {
     //Max 2 ascii chars
     public static int encode(KeyPair kp, String m) {
         int mAsInt = RSAtools.convertTextToInt(m);
-        System.out.println("\nm: \""+ m +"\"   mAsInt: " + mAsInt);
+        System.out.println("\nm: \"" + m + "\"   mAsInt: " + mAsInt);
         System.out.println("e: " + kp.getE() + "    d: " + kp.getD() + "    n: " + kp.getN());
         //System.out.println("c = ((int)Math.pow(mAsInt, kp.getE())) % kp.getN(): " + ((int)Math.pow(mAsInt, kp.getE())) % kp.getN());
         BigInteger mBig = BigInteger.valueOf(mAsInt);

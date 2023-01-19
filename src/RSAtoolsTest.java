@@ -1,9 +1,56 @@
 import java.security.KeyPair;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RSAtoolsTest {
+
+    @org.junit.jupiter.api.Test
+    void primeFactorizeTest() {
+/*
+        ArrayList<Integer> pf= new ArrayList<>();
+        pf.add(1);
+        pf.add(2);
+        pf.add(2);
+        pf.add(2);
+        assertTrue(pf.equals(RSAtools.primeFactorize(8)));
+
+        ArrayList<Integer> pf1= new ArrayList<>();
+        pf1.add(1);
+        pf1.add(3);
+        pf1.add(3);
+        assertTrue(pf1.equals(RSAtools.primeFactorize(9)));
+
+        ArrayList<Integer> pf3= new ArrayList<>();
+        pf3.add(1);
+        pf3.add(2);
+        pf3.add(5);
+        assertTrue(pf3.equals(RSAtools.primeFactorize(10)));*/
+
+        ArrayList<Integer> pf4= new ArrayList<>();
+        pf4.add(1);
+        pf4.add(2);
+        pf4.add(2);
+        pf4.add(3);
+        assertTrue(pf4.equals(RSAtools.primeFactorize(12)));
+
+        ArrayList<Integer> pf5= new ArrayList<>();
+        pf5.add(1);
+        pf5.add(2);
+        pf5.add(3);
+        pf5.add(3);
+        pf5.add(3);
+        pf5.add(5);
+        assertTrue(pf5.equals(RSAtools.primeFactorize(270)));
+
+        ArrayList<Integer> pf2= new ArrayList<>();
+        pf2.add(1);
+        assertTrue(pf2.equals(RSAtools.primeFactorize(13)));
+        assertTrue(pf2.equals(RSAtools.primeFactorize(40013)));
+
+
+    }
 
     @org.junit.jupiter.api.Test
     void phiFunctionTest() {
