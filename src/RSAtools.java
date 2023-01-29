@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class RSAtools {
 
-    public static ArrayList<Integer> primeFactorize(int n) {
+ // public static ArrayList<Integer> primeFactorize(int n) {
+  /*  public static ArrayList<Integer> primeFactorize(int n) {
         ArrayList<Integer> pf = new ArrayList<>();
         pf.add(1);
         int factor = 2;
@@ -19,9 +20,10 @@ public class RSAtools {
             factor++;
         }
         return pf;
-    }
+    }*/
 
-    public static int phiFunctionEfficient(int n) {
+  //  public static int phiFunctionEfficient(int n) {
+ /*   public static int phiFunctionEfficient(int n) {
         int phiOfN=1;
         ArrayList<Integer> pf = primeFactorize(n);
         if(pf.size()==1)
@@ -46,8 +48,10 @@ public class RSAtools {
         }
         return phiOfN;
     }
+*/
 
-    public static int phiFunction(int n) {
+  //  public static int phiFunction(int n) {
+/*  public static int phiFunction(int n) {
         int phiOfN = 0;
         for (int i = 1; i < n; i++) {
             BigInteger bi = BigInteger.valueOf(i);
@@ -60,8 +64,10 @@ public class RSAtools {
         }
         return phiOfN;
     }
+*/
 
-    public static int fastExpAlt(int base, int exponent, int modulus){
+   // public static int fastExpAlt(int base, int exponent, int modulus){
+  /*  public static int fastExpAlt(int base, int exponent, int modulus){
         ArrayList<Integer> exponentList = primeFactorize(exponent);
         BigInteger baseBig = BigInteger.valueOf(base);
 
@@ -77,8 +83,10 @@ public class RSAtools {
         }
         return r.intValue();
     }
+*/
 
-    public static int fastExp(int base, int exponent, int modulus){
+    //  public static BigInteger fastExp(int base, int exponent, int modulus){
+  /*  public static BigInteger fastExp(int base, int exponent, int modulus){
         ArrayList<Integer> exponentList = primeFactorize(exponent);
         BigInteger baseBig = BigInteger.valueOf(base);
 
@@ -94,13 +102,17 @@ public class RSAtools {
         }
         return r.intValue();
     }
+*/
 
 
-    public KeyPair getKeyPair() {
+    //  public KeyPair getKeyPair() {
+  /*  public KeyPair getKeyPair() {
         return new KeyPair();
-    }
+    }*/
 
-    public class KeyPair {
+
+    //  public class KeyPair {
+  /*  public class KeyPair {
         int e;
         int d;
         int n;
@@ -131,9 +143,8 @@ public class RSAtools {
                     notRelativPrime = false;
             }
 */
-
-
          //   System.out.println("phiOfN: " + phiOfN.intValue());
+    /*
         }
 
         public int getE() {
@@ -148,54 +159,62 @@ public class RSAtools {
             return n;
         }
     }
+*/
+
 
     //Max 4 ascii chars
-    public static int convertTextToInt(String m) {
-        int mAsEncoded = 0;
+    public static BigInteger convertTextToInt(String m) {
+        BigInteger mAsEncoded = BigInteger.valueOf(0);
         for (int i = 0; i < m.length(); i++) {
             char c = m.charAt(i);
-            mAsEncoded = (mAsEncoded << (8)) + c;
+           // mAsEncoded.shiftLeft(8);
+            mAsEncoded=  mAsEncoded.shiftLeft(8).add(BigInteger.valueOf((int)c));
+           // mAsEncoded.add(BigInteger.valueOf(42));
+           // mAsEncoded = (mAsEncoded << (8)) + c;
         }
         return mAsEncoded;
     }
 
     //Max 4 ascii chars
-    public static String convertIntToText(int c) {
+    public static String convertIntToText(BigInteger c) {
         String m = "";
-        while (c != 0) {
-            int i = 0b11111111 & c;
+        while (c.intValue() != 0) {
+            int i = 0b11111111 & c.intValue();
+          //  int i = 0b11111111 & c;
             m = (char) i + m;
-            c = c >> 8;
+            c.shiftRight(8);
+           // c = c >> 8;
         }
         return m;
     }
 
-    //Max 2 ascii chars
-    public static int encode(KeyPair kp, String m) {
-        int mAsInt = RSAtools.convertTextToInt(m);
+  //  public static int encode(KeyPair kp, String m) {
+ /*   public static int encode(KeyPair kp, String m) {
+        BigInteger mAsBigInt = RSAtools.convertTextToInt(m);
      //   System.out.println("\nm: \"" + m + "\"   mAsInt: " + mAsInt);
      //   System.out.println("e: " + kp.getE() + "    d: " + kp.getD() + "    n: " + kp.getN());
         //System.out.println("c = ((int)Math.pow(mAsInt, kp.getE())) % kp.getN(): " + ((int)Math.pow(mAsInt, kp.getE())) % kp.getN());
-        BigInteger mBig = BigInteger.valueOf(mAsInt);
+      //  BigInteger mBig = BigInteger.valueOf(mAsBigInt);
         BigInteger nBig = BigInteger.valueOf(kp.getN());
-        BigInteger cBig = mBig.pow(kp.getE()).mod(nBig);
+        BigInteger cBig = mAsBigInt.pow(kp.getE()).mod(nBig);
     //    System.out.println("c: " + cBig.intValue());
         return cBig.intValue();
-    }
+    }*/
 
-    //Max 2 ascii chars
-    public static String decode(KeyPair kp, int c) {
+    //public static String decode(KeyPair kp, int c) {
+   /* public static String decode(KeyPair kp, int c) {
         //  System.out.println("\nc: "+c+"   d: " + kp.getD());
         //  System.out.println("mAsInt = ((int)Math.pow(c, kp.getD())) % kp.getN(): "+ ((int)Math.pow(c, kp.getD())) % kp.getN());
         //BigInteger cBig = BigInteger.valueOf(c);
         //BigInteger nBig = BigInteger.valueOf(kp.getN());
        // BigInteger mAsBig = cBig.pow(kp.getD()).mod(nBig);
-        int m = fastExp(c, kp.getD(),kp.getN() );
+       // int m = fastExp(c, kp.getD(),kp.getN() );
 
+        BigInteger m =  fastExp(c, kp.getD(),kp.getN() );
 
         //int mAsInt = ((int)Math.pow(c, kp.getD())) % kp.getN();
     //    System.out.println("mAsInt: " + mAsBig.intValue());
     //    System.out.println("m: " + RSAtools.convertIntToText(mAsBig.intValue()));
         return RSAtools.convertIntToText(m);
-    }
+    }*/
 }
