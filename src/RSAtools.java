@@ -1,27 +1,39 @@
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 public class RSAtools {
 
  // public static ArrayList<Integer> primeFactorize(int n) {
-  /*  public static ArrayList<Integer> primeFactorize(int n) {
-        ArrayList<Integer> pf = new ArrayList<>();
-        pf.add(1);
-        int factor = 2;
-        int rm = n;
+    public static ArrayList<BigInteger> primeFactorize(BigInteger n) {
+        ArrayList<BigInteger> pf = new ArrayList<>();
+        pf.add(new BigInteger("1"));
+        BigInteger factor = new BigInteger("2");
+       // int factor = 2;
+        BigInteger rm = new BigInteger(n.toString());
+    //    int rm = n;
 
-        while (factor <= rm ) {
+        while (factor.compareTo(rm)<=0) {
+            if (rm.remainder(factor)==BigInteger.ZERO && factor.compareTo(n)!=0) {
+                pf.add(factor);
+                rm = rm.divide(factor);
+                factor=factor.subtract(BigInteger.ONE);
+            }
+            factor=factor.add(BigInteger.ONE);
+        }
+      /*  while (factor <= rm ) {
             if (rm % factor == 0 && factor!=n) {
               pf.add(factor);
                 rm = rm / factor;
                 factor--;
             }
             factor++;
-        }
+        }*/
         return pf;
-    }*/
+    }
 
+    /*
   //  public static int phiFunctionEfficient(int n) {
- /*   public static int phiFunctionEfficient(int n) {
+    public static BigInteger phiFunctionEfficient(BigInteger n) {
         int phiOfN=1;
         ArrayList<Integer> pf = primeFactorize(n);
         if(pf.size()==1)
