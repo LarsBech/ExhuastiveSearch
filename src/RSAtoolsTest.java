@@ -120,6 +120,13 @@ class RSAtoolsTest {
     void convertTextToInt() {
         BigInteger i = RSAtools.convertTextToInt("Hej");
         assertEquals(BigInteger.valueOf(4744554), i);
+
+         i = RSAtools.convertTextToInt("HejK");
+        assertEquals(BigInteger.valueOf(1214605899), i);
+
+         i = RSAtools.convertTextToInt("HejK4");
+         BigInteger e = new BigInteger("310939110196");
+       // assertEquals(BigInteger. valueOf(310939110196), i);
     }
 
     @org.junit.jupiter.api.Test
