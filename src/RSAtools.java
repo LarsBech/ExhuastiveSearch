@@ -1,6 +1,4 @@
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class RSAtools {
 
@@ -162,28 +160,22 @@ public class RSAtools {
 */
 
 
-    //Max 4 ascii chars
-    public static BigInteger convertTextToInt(String m) {
+    //Any size
+    public static BigInteger convertTextToBigInt(String m) {
         BigInteger mAsEncoded = BigInteger.valueOf(0);
         for (int i = 0; i < m.length(); i++) {
             char c = m.charAt(i);
-           // mAsEncoded.shiftLeft(8);
             mAsEncoded=  mAsEncoded.shiftLeft(8).add(BigInteger.valueOf((int)c));
-           // mAsEncoded.add(BigInteger.valueOf(42));
-           // mAsEncoded = (mAsEncoded << (8)) + c;
         }
         return mAsEncoded;
     }
 
-    //Max 4 ascii chars
-    public static String convertIntToText(BigInteger c) {
+    //Any size
+    public static String convertBigIntToText(BigInteger c) {
         String m = "";
-        while (c.intValue() != 0) {
-            int i = 0b11111111 & c.intValue();
-          //  int i = 0b11111111 & c;
-            m = (char) i + m;
-            c.shiftRight(8);
-           // c = c >> 8;
+        byte ba[] = c.toByteArray();
+        for (int i=0; i<ba.length; i++){
+            m = m+ (char)ba[i];
         }
         return m;
     }
