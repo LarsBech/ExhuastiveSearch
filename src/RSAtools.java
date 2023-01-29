@@ -40,8 +40,10 @@ public class RSAtools {
 
                 phiOfN = phiOfN * ((int)Math.pow(factor, nrOfOcurrences) - (int)Math.pow(factor, nrOfOcurrences-1));
             }
+            if (phiOfN % 100 == 0) {
+                System.out.println("phiOfN: " + phiOfN);
+            }
         }
-
         return phiOfN;
     }
 
@@ -59,6 +61,40 @@ public class RSAtools {
         return phiOfN;
     }
 
+    public static int fastExpAlt(int base, int exponent, int modulus){
+        ArrayList<Integer> exponentList = primeFactorize(exponent);
+        BigInteger baseBig = BigInteger.valueOf(base);
+
+        if(exponentList.size()==1) {
+            return baseBig.pow(exponent).mod(BigInteger.valueOf(modulus)).intValue();
+        }
+
+        BigInteger r = baseBig.pow(exponentList.get(1)).mod(BigInteger.valueOf(modulus));
+
+        for(int i=2; i<exponentList.size(); i++){
+            // System.out.println("primfactor: "+ exponentList.get(i));
+            r = r.pow(exponentList.get(i)).mod(BigInteger.valueOf(modulus));
+        }
+        return r.intValue();
+    }
+
+    public static int fastExp(int base, int exponent, int modulus){
+        ArrayList<Integer> exponentList = primeFactorize(exponent);
+        BigInteger baseBig = BigInteger.valueOf(base);
+
+        if(exponentList.size()==1) {
+            return baseBig.pow(exponent).mod(BigInteger.valueOf(modulus)).intValue();
+        }
+
+        BigInteger r = baseBig.pow(exponentList.get(1)).mod(BigInteger.valueOf(modulus));
+
+        for(int i=2; i<exponentList.size(); i++){
+           // System.out.println("primfactor: "+ exponentList.get(i));
+            r = r.pow(exponentList.get(i)).mod(BigInteger.valueOf(modulus));
+        }
+        return r.intValue();
+    }
+
 
     public KeyPair getKeyPair() {
         return new KeyPair();
@@ -72,11 +108,16 @@ public class RSAtools {
         public KeyPair() {
             //Java max size int: 2.147.483.647
             //Min size for n:    2.122.219.134 in order to represent "~~~~" (the largest printable 4 byte ascii string)
-            BigInteger eBig = BigInteger.valueOf(13);
-            BigInteger p = BigInteger.valueOf(39971);
-            BigInteger q = BigInteger.valueOf(53359);
-            BigInteger phiOfN = p.subtract(BigInteger.valueOf(1)).multiply(q.subtract(BigInteger.valueOf(1)));
-            BigInteger dBig = (eBig.pow(RSAtools.phiFunction(phiOfN.intValue()) - 1)).mod(phiOfN);
+            //                     541.556.023
+            e=(13);
+            int  p = (39971);
+            int q =(53359);
+            n=p*q;
+            int  phiOfN = (p-1)*(q-1);
+
+            //BigInteger dBig = (eBig.pow(RSAtools.phiFunctionEfficient(phiOfN.intValue()) - 1)).mod(phiOfN);
+
+            d = fastExp( e,phiFunctionEfficient( phiOfN)-1, phiOfN);
 
             /*
             boolean notRelativPrime = true;
@@ -91,10 +132,8 @@ public class RSAtools {
             }
 */
 
-            n = p.intValue() * q.intValue();
-            e = eBig.intValue();
-            d = dBig.intValue();
-            System.out.println("phiOfN: " + phiOfN.intValue());
+
+         //   System.out.println("phiOfN: " + phiOfN.intValue());
         }
 
         public int getE() {
@@ -134,13 +173,13 @@ public class RSAtools {
     //Max 2 ascii chars
     public static int encode(KeyPair kp, String m) {
         int mAsInt = RSAtools.convertTextToInt(m);
-        System.out.println("\nm: \"" + m + "\"   mAsInt: " + mAsInt);
-        System.out.println("e: " + kp.getE() + "    d: " + kp.getD() + "    n: " + kp.getN());
+     //   System.out.println("\nm: \"" + m + "\"   mAsInt: " + mAsInt);
+     //   System.out.println("e: " + kp.getE() + "    d: " + kp.getD() + "    n: " + kp.getN());
         //System.out.println("c = ((int)Math.pow(mAsInt, kp.getE())) % kp.getN(): " + ((int)Math.pow(mAsInt, kp.getE())) % kp.getN());
         BigInteger mBig = BigInteger.valueOf(mAsInt);
         BigInteger nBig = BigInteger.valueOf(kp.getN());
         BigInteger cBig = mBig.pow(kp.getE()).mod(nBig);
-        System.out.println("c: " + cBig.intValue());
+    //    System.out.println("c: " + cBig.intValue());
         return cBig.intValue();
     }
 
@@ -148,12 +187,15 @@ public class RSAtools {
     public static String decode(KeyPair kp, int c) {
         //  System.out.println("\nc: "+c+"   d: " + kp.getD());
         //  System.out.println("mAsInt = ((int)Math.pow(c, kp.getD())) % kp.getN(): "+ ((int)Math.pow(c, kp.getD())) % kp.getN());
-        BigInteger cBig = BigInteger.valueOf(c);
-        BigInteger nBig = BigInteger.valueOf(kp.getN());
-        BigInteger mAsBig = cBig.pow(kp.getD()).mod(nBig);
+        //BigInteger cBig = BigInteger.valueOf(c);
+        //BigInteger nBig = BigInteger.valueOf(kp.getN());
+       // BigInteger mAsBig = cBig.pow(kp.getD()).mod(nBig);
+        int m = fastExp(c, kp.getD(),kp.getN() );
+
+
         //int mAsInt = ((int)Math.pow(c, kp.getD())) % kp.getN();
-        System.out.println("mAsInt: " + mAsBig.intValue());
-        System.out.println("m: " + RSAtools.convertIntToText(mAsBig.intValue()));
-        return RSAtools.convertIntToText(mAsBig.intValue());
+    //    System.out.println("mAsInt: " + mAsBig.intValue());
+    //    System.out.println("m: " + RSAtools.convertIntToText(mAsBig.intValue()));
+        return RSAtools.convertIntToText(m);
     }
 }

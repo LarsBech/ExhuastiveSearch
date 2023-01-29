@@ -1,9 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-        int c =RSAtools.convertTextToInt("Hej");
-        System.out.println("\nText: "+ RSAtools.convertIntToText(c));
+        //test
+        System.out.println("NEW Hello world!");
         RSAtools rsAtools = new RSAtools();
-        rsAtools.getKeyPair();
+        RSAtools.KeyPair kp = rsAtools.getKeyPair();
+
+        int c = RSAtools.encode(kp, "Hell");
+        System.out.println("\nc: "+ c);
+        String m = RSAtools.decode(kp, c);
+        System.out.println("\nm: "+ m);
+
     }
 }

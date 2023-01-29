@@ -20,9 +20,31 @@ class RSAtoolsTest {
         assertEquals(16, RSAtools.phiFunctionEfficient(32));
         assertEquals(20, RSAtools.phiFunctionEfficient(33));
 
+        assertEquals(486570240, RSAtools.phiFunctionEfficient(2132719260));
+
     }
 
+    @org.junit.jupiter.api.Test
+    void fastExpTest() {
+        int b=37; int exp = 36; int modulus = 117;
+        assertEquals(1, RSAtools.fastExp(b, exp, modulus));
 
+        b=22; exp= 17; modulus =224;
+        assertEquals(64, RSAtools.fastExp(b, exp, modulus));
+
+        b=22; exp= 38; modulus =224;
+        assertEquals(64, RSAtools.fastExp(b, exp, modulus));
+
+        b=22; exp= 38; modulus =227;
+        assertEquals(62, RSAtools.fastExp(b, exp, modulus));
+
+        b=17; exp= 31; modulus =224;
+        assertEquals(17, RSAtools.fastExp(b, exp, modulus));
+
+        b=17; exp= 31; modulus =111;
+        assertEquals(2, RSAtools.fastExp(b, exp, modulus));
+
+    }
 
     @org.junit.jupiter.api.Test
     void primeFactorizeTest() {
