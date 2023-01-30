@@ -3,6 +3,11 @@ import java.util.ArrayList;
 
 public class RSAtools {
 
+    public static BigInteger extendedEuclid(BigInteger e, BigInteger n){
+
+        return e;
+    }
+
  // public static ArrayList<Integer> primeFactorize(int n) {
     public static ArrayList<BigInteger> primeFactorize(BigInteger n) {
         ArrayList<BigInteger> pf = new ArrayList<>();
