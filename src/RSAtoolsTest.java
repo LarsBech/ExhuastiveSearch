@@ -5,6 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RSAtoolsTest {
+
+    @org.junit.jupiter.api.Test
+    void GCDtest() {
+        BigInteger gcd = RSAtools.extendedEuclid(new BigInteger("30"), new BigInteger("7"));
+
+        assertEquals(gcd, (new BigInteger("1")));
+
+    }
 /*
         @org.junit.jupiter.api.Test
         void phiFunctionEfficientTest() {
@@ -54,26 +62,26 @@ class RSAtoolsTest {
             pf.add(new BigInteger("2"));
             pf.add(new BigInteger("2"));
             pf.add(new BigInteger("2"));
-      //      assertTrue(pf.equals(RSAtools.primeFactorize(new BigInteger("8"))));
+           assertTrue(pf.equals(RSAtools.primeFactorize(new BigInteger("8"))));
 
             ArrayList<BigInteger> pf1= new ArrayList<>();
             pf1.add(new BigInteger("1"));
             pf1.add(new BigInteger("3"));
             pf1.add(new BigInteger("3"));
-       //     assertTrue(pf1.equals(RSAtools.primeFactorize(new BigInteger("9"))));
+           assertTrue(pf1.equals(RSAtools.primeFactorize(new BigInteger("9"))));
 
             ArrayList<BigInteger> pf3= new ArrayList<>();
             pf3.add(new BigInteger("1"));
             pf3.add(new BigInteger("2"));
             pf3.add(new BigInteger("5"));
-       //     assertTrue(pf3.equals(RSAtools.primeFactorize(new BigInteger("10"))));
+           assertTrue(pf3.equals(RSAtools.primeFactorize(new BigInteger("10"))));
 
             ArrayList<BigInteger> pf4= new ArrayList<>();
             pf4.add(new BigInteger("1"));
             pf4.add(new BigInteger("2"));
             pf4.add(new BigInteger("2"));
             pf4.add(new BigInteger("3"));
-      //      assertTrue(pf4.equals(RSAtools.primeFactorize(new BigInteger("12"))));
+           assertTrue(pf4.equals(RSAtools.primeFactorize(new BigInteger("12"))));
 
             ArrayList<BigInteger> pf5= new ArrayList<>();
             pf5.add(new BigInteger("1"));
@@ -82,7 +90,7 @@ class RSAtoolsTest {
             pf5.add(new BigInteger("3"));
             pf5.add(new BigInteger("3"));
             pf5.add(new BigInteger("5"));
-       //     assertTrue(pf5.equals(RSAtools.primeFactorize(new BigInteger("270"))));
+          assertTrue(pf5.equals(RSAtools.primeFactorize(new BigInteger("270"))));
 
             ArrayList<BigInteger> pf2= new ArrayList<>();
             pf2.add(new BigInteger("1"));

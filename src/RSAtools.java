@@ -4,8 +4,17 @@ import java.util.ArrayList;
 public class RSAtools {
 
     public static BigInteger extendedEuclid(BigInteger e, BigInteger n){
-
-        return e;
+        BigInteger r;
+        do{
+            r = n.mod(e);
+            if(r.compareTo(BigInteger.ZERO)==0){
+                return e;
+            }
+            n=e;
+            e=r;
+        }
+        while (r.compareTo(BigInteger.ZERO)!=0);
+        return BigInteger.ONE;
     }
 
  // public static ArrayList<Integer> primeFactorize(int n) {
